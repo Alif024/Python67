@@ -1,6 +1,6 @@
 def length_of_longest_substring_k_distinct(s: str, k: int):
     if k == 0:
-        return 0
+        return (0, [])
     list_all_answer = []
     for i in range(len(s)):
         list_answer = []

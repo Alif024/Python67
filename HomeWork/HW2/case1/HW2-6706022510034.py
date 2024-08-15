@@ -16,10 +16,7 @@ def length_of_longest_substring_k_distinct(s: str, k: int) -> tuple:
     for answer in list_all_answer:
         if len(answer) >= highest_len:
             highest_len = len(answer)
-    result = []
-    for answer in list_all_answer:
-        if len(answer) == highest_len:
-            result.append(answer)
+    result = [answer for answer in list_all_answer if len(answer) == highest_len]
     return (highest_len, result)
 
 

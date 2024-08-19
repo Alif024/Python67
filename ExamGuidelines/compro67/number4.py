@@ -1,12 +1,13 @@
 def analyze_purchases(purchases: list) -> dict:
     dict_purchases = {}
-    for data in purchases:
-        if data[0] not in dict_purchases:
-            dict_purchases[data[0]] = dict([])
-        if data[1] not in dict_purchases[data[0]]:
-            dict_purchases[data[0]][data[1]] = []
-        dict_purchases[data[0]][data[1]].append(data[2])
+    for cust_id, category, product in purchases:
+        if cust_id not in dict_purchases:
+            dict_purchases[cust_id] = dict([])
+        if category not in dict_purchases[cust_id]:
+            dict_purchases[cust_id][category] = []
+        dict_purchases[cust_id][category].append(product)
         # print(dict_purchases)
+
 
     print(dict_purchases)
 

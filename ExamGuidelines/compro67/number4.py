@@ -48,18 +48,17 @@ def analyze_purchases(purchases: list) -> dict:
     # print(all_buy_product)
     # print(dict_all_buy_product)
 
-    list_most_frequency = {}
+    dict_most_frequency = {}
     for category, values in dict_all_buy_product.items():
         # print(category, values)
         frequency_rate = max([rate for rate in values.values()])
         # print(frequency_rate)
         for product, frequency in values.items():
             if frequency == frequency_rate:
-                # list_most_frequency.append((category, product))
-                list_most_frequency.update({category: product})
+                dict_most_frequency.update({category: product})
     # print(list_most_frequency)
 
-    dict_analyze["most_frequent"] = list_most_frequency
+    dict_analyze["most_frequent"] = dict_most_frequency
     # print(dict_analyze)
     return dict_analyze
 

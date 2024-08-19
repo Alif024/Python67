@@ -30,8 +30,7 @@ def analyze_purchases(purchases: list) -> dict:
                 elif dict_purchases[cust_id][category].count(product) == high_frequen:
                     set_products_frequen.add((category, product, high_frequen))
         if len(set_products_frequen) == 1:
-            dict_analyze[cust_id] = {list(set_products_frequen)[
-                0][0]: list(set_products_frequen)[0][2]}
+            dict_analyze[cust_id] = {list(set_products_frequen)[0][0]: list(set_products_frequen)[0][2]}
         else:
             dict_analyze[cust_id] = {}
         # print(category_product_high_frequency, high_frequen)

@@ -6,8 +6,8 @@ def analyze_purchases(purchases: list) -> dict:
         if category not in dict_purchases[cust_id]:
             dict_purchases[cust_id][category] = []
         dict_purchases[cust_id][category].append(product)
-        # print(dict_purchases)
-    
+    # print(dict_purchases)
+
     dict_analyze = {}
     all_buy_product = []
     for cust_id, values in dict_purchases.items():
@@ -18,21 +18,26 @@ def analyze_purchases(purchases: list) -> dict:
         set_products_frequen = set([])
         for category in list(values.keys()):
             # print(category)     # get category
-            # print(dict_purchases[ust_id][category])     # get list products 
+            # print(dict_purchases[ust_id][category])     # get list products
             for product in dict_purchases[cust_id][category]:
                 # print(cust_id, category, product)
                 all_buy_product.append((category, product))
-                if dict_purchases[cust_id][category].count(product) >= high_frequen:
-                    high_frequen = dict_purchases[cust_id][category].count(product)
+                if dict_purchases[cust_id][category].count(product) > high_frequen:
+                    high_frequen = dict_purchases[cust_id][category].count(
+                        product)
+                    set_products_frequen = set(
+                        [(category, product, high_frequen)])
+                elif dict_purchases[cust_id][category].count(product) == high_frequen:
                     set_products_frequen.add((category, product, high_frequen))
-        
         if len(set_products_frequen) == 1:
-            dict_analyze[cust_id] = {list(set_products_frequen)[0][0]: list(set_products_frequen)[0][2]}
+            dict_analyze[cust_id] = {list(set_products_frequen)[
+                0][0]: list(set_products_frequen)[0][2]}
         else:
             dict_analyze[cust_id] = {}
-
         # print(category_product_high_frequency, high_frequen)
         # print(set_products_frequen)
+        # print(len(set_products_frequen))
+
     dict_all_buy_product = {}
     for category, product in all_buy_product:
         if category not in dict_all_buy_product:

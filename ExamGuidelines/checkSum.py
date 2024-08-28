@@ -90,7 +90,7 @@ def display(list_carry_nums, list_arg, sum_partial, sum_result, int_check_sum):
         # print(hex(i).replace("0x", ""))
         for char_hex in hex(i).replace("0x", ""):
             if len(str(i)) == 1:
-                print(f"{"0":>2}"*4, end="")
+                print(f"{'0':>2}"*4, end="")
             else:
                 print(f"{char_hex.upper():>2}", end="")
         print()
@@ -134,5 +134,5 @@ def sum_hex_num(*args):
     display(list_carry_nums, list_arg, sum_partial, sum_result, int_check_sum)
 
 
-sum_hex_num(0x466f, 0x7267, 0x757a, 0x616e, 0x0000)
-sum_hex_num(0x466f, 0x7267, 0x757a, 0x616e, 0x7040)
+sum_hex_num(0x5,0x10,0xf,0xa,0x9)
+# sum_hex_num(0x466f, 0x7267, 0x757a, 0x616e, 0x7040)

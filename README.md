@@ -28,3 +28,4 @@ Using as a command line tool.
 ```shell
 jupyter nbconvert --to FORMAT notebook.ipynb
 ```
+Getting MiKTeX [downlaod...](https://miktex.org/download)

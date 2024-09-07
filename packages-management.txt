@@ -1,5 +1,0 @@
-Export environment
-conda env export > requirements.yaml
-
-Import environment
-conda env create -f requirements.yaml

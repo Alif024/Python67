@@ -8,4 +8,4 @@ conda env export > requirements.yaml
 conda env create -f requirements.yaml
 
 # How to use nbconvert
-[text](https://nbconvert.readthedocs.io/en/latest/usage.html)
+Basic commands required. [read more...](https://nbconvert.readthedocs.io/en/latest/usage.html)

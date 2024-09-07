@@ -1,15 +1,33 @@
 # Python67
 For study Python
 
-# Export environment
+# Getting started with conda
+Miniconda is a free minimal installer for conda. It is a small bootstrap version of Anaconda that includes only conda, Python, the packages they both depend on, and a small number of other useful packages (like pip, zlib, and a few others). [Go to download...](https://docs.anaconda.com/miniconda/) 
+
+### Examples:
+Install the package 'scipy' into the currently-active environment:
+```shell
+conda install scipy
+```
+Install a list of packages into an environment, myenv:
+```shell
+conda install -n myenv scipy curl wheel
+```
+Install a specific version of 'python' into an environment, myenv:
+```shell
+conda install -p path/to/myenv python=3.11
+```
+
+### Export environment
 ```shell
 conda env export > requirements.yaml
 ```
 
-# Import environment
+### Import environment
 ```shell
 conda env create -f requirements.yaml
 ```
+[read more...](https://docs.conda.io/projects/conda/en/stable/commands/index.html) 
 
 # How to use nbconvert
 Supported output formats [read more...](https://nbconvert.readthedocs.io/en/latest/usage.html)

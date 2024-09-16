@@ -1,0 +1,30 @@
+Department: Engineering
+    Total employees: 6
+    employees: ['Robert', 'Matthew', 'Sarah', 'Robert', 'Matthew', 'Sarah']
+    Average score: 90.33
+    Average salary: 41000.00
+
+Department: Finance
+    Total employees: 6
+    employees: ['Emily', 'Daniel', 'Olivia', 'Emily', 'Daniel', 'Olivia']
+    Average score: 95.00
+    Average salary: 46666.67
+
+Department: HR
+    Total employees: 6
+    employees: ['David', 'Sophia', 'James', 'David', 'Sophia', 'James']
+    Average score: 75.67
+    Average salary: 30000.00
+
+Department: Marketing
+    Total employees: 6
+    employees: ['John', 'Jessica', 'Andrew', 'John', 'Jessica', 'Andrew']
+    Average score: 87.33
+    Average salary: 36333.33
+
+Department: Sales
+    Total employees: 6
+    employees: ['Alice', 'Emma', 'Michael', 'Alice', 'Emma', 'Michael']
+    Average score: 80.00
+    Average salary: 25000.00
+

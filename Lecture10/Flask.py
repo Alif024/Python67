@@ -11,7 +11,7 @@ html_template = """
     <title>Greeting Page</title>
 </head>
 <body>
-    <h1>Hello, {{name}}!</h1>
+    <h1 style="color: green;">Hello, {{name}}!</h1>
     <p>Welcome to your simple Flask web app.</p>
 </body>
 </html>

@@ -27,6 +27,10 @@ conda env export > requirements.yaml
 ```shell
 conda env create -f requirements.yaml
 ```
+### Update environment
+```shell
+conda env update -n basicPython -f requirements.yaml
+```
 [read more...](https://docs.conda.io/projects/conda/en/stable/commands/index.html) 
 
 # How to use nbconvert

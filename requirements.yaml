@@ -7,10 +7,8 @@ dependencies:
   - asttokens=2.4.1=pyhd8ed1ab_0
   - attrs=23.1.0=py312haa95532_0
   - beautifulsoup4=4.12.3=py312haa95532_0
-  - blas=1.0=mkl
   - bleach=4.1.0=pyhd3eb1b0_0
   - blinker=1.6.2=py312haa95532_0
-  - bottleneck=1.3.7=py312he558020_0
   - brotli=1.0.9=h2bbff1b_8
   - brotli-bin=1.0.9=h2bbff1b_8
   - brotli-python=1.0.9=py312hd77b12b_8
@@ -22,7 +20,7 @@ dependencies:
   - click=8.1.7=py312haa95532_0
   - colorama=0.4.6=pyhd8ed1ab_0
   - comm=0.2.2=pyhd8ed1ab_0
-  - contourpy=1.2.0=py312h59b6b97_0
+  - contourpy=1.3.0=py312hd5eb7cc_1
   - cycler=0.11.0=pyhd3eb1b0_0
   - debugpy=1.8.5=py312h275cf98_1
   - decorator=5.1.1=pyhd8ed1ab_0
@@ -48,7 +46,7 @@ dependencies:
   - idna=3.7=py312haa95532_0
   - importlib-metadata=8.4.0=pyha770c72_0
   - importlib_metadata=8.4.0=hd8ed1ab_0
-  - intel-openmp=2023.1.0=h59b6b97_46320
+  - intel-openmp=2024.2.1=h57928b3_1083
   - ipykernel=6.29.5=pyh4bbf305_0
   - ipython=8.27.0=pyh7428d3b_0
   - itsdangerous=2.2.0=py312haa95532_0
@@ -63,9 +61,11 @@ dependencies:
   - krb5=1.21.3=hdf4eb48_0
   - lcms2=2.16=h67d730c_0
   - lerc=4.0.0=h63175ca_0
+  - libblas=3.9.0=23_win64_mkl
   - libbrotlicommon=1.0.9=h2bbff1b_8
   - libbrotlidec=1.0.9=h2bbff1b_8
   - libbrotlienc=1.0.9=h2bbff1b_8
+  - libcblas=3.9.0=23_win64_mkl
   - libclang13=18.1.8=default_ha5278ca_4
   - libdeflate=1.21=h2466b09_0
   - libexpat=2.6.3=he0c23c2_0
@@ -74,6 +74,7 @@ dependencies:
   - libiconv=1.17=hcfcfb64_2
   - libintl=0.22.5=h5728263_3
   - libjpeg-turbo=3.0.3=h827c3e9_0
+  - liblapack=3.9.0=23_win64_mkl
   - libpng=1.6.44=h3ca93ac_0
   - libsodium=1.0.20=hc70643c_0
   - libsqlite=3.46.1=h2466b09_0
@@ -90,13 +91,10 @@ dependencies:
   - m2w64-libwinpthread-git=5.0.0.4634.697f757=2
   - markupsafe=2.1.3=py312h2bbff1b_0
   - matplotlib=3.9.2=py312h2e8e312_1
-  - matplotlib-base=3.9.2=py312hbdc63d0_0
+  - matplotlib-base=3.9.2=py312h90004f6_1
   - matplotlib-inline=0.1.7=pyhd8ed1ab_0
   - mistune=2.0.4=py312haa95532_0
-  - mkl=2023.1.0=h6b88ed4_46358
-  - mkl-service=2.4.0=py312h2bbff1b_1
-  - mkl_fft=1.3.10=py312h827c3e9_0
-  - mkl_random=1.2.7=py312h0158946_0
+  - mkl=2024.1.0=h66d3029_694
   - msys2-conda-epoch=20160418=1
   - nbclient=0.8.0=py312haa95532_0
   - nbconvert=7.16.4=hd8ed1ab_1
@@ -104,9 +102,7 @@ dependencies:
   - nbconvert-pandoc=7.16.4=hd8ed1ab_1
   - nbformat=5.9.2=py312haa95532_0
   - nest-asyncio=1.6.0=pyhd8ed1ab_0
-  - numexpr=2.8.7=py312h96b7d27_0
-  - numpy=1.26.4=py312hfd52020_0
-  - numpy-base=1.26.4=py312h4dde369_0
+  - numpy=2.1.1=py312h49bc9c5_0
   - openjpeg=2.5.2=hae555c5_0
   - openssl=3.3.2=h2466b09_0
   - packaging=24.1=pyhd8ed1ab_0
@@ -136,6 +132,7 @@ dependencies:
   - pytz=2024.1=py312haa95532_0
   - pywin32=306=py312h53d5487_2
   - pyzmq=26.2.0=py312hd7027bb_2
+  - qhull=2020.2=h59b6b97_2
   - qt6-main=6.7.2=hbb46ec1_5
   - referencing=0.30.2=py312haa95532_0
   - requests=2.32.3=pyhd8ed1ab_0
@@ -169,4 +166,4 @@ dependencies:
   - zipp=3.20.1=pyhd8ed1ab_0
   - zlib=1.3.1=h2466b09_1
   - zstd=1.5.6=h0ea2cb4_0
-prefix: C:\Users\alifw\.conda\envs\basicPython
+prefix: C:\Users\ALIF\miniconda3\envs\basicPython

@@ -31,7 +31,7 @@ def analyze_log_file(log_file_path: str) -> dict:
         return result
 
 
-log_file_path = 'server_log.txt'  # Replace with the path to your log file
+log_file_path = 'HomeWork\HW3\server_log.txt'  # Replace with the path to your log file
 result = analyze_log_file(log_file_path)
 
 # Print the analysis result

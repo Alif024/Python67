@@ -1,7 +1,7 @@
 import struct
 
 
-def changeName(listData:list,index: int, newName: str):
+def changeName(listData: list, index: int, newName: str):
     listData[index]['name'] = newName
 
 

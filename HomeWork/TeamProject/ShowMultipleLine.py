@@ -31,3 +31,4 @@ def showAllData(pathFile: str):
 
 if __name__ == "__main__":
     showAllData("HomeWork\\TeamProject\\data.bin")
+    # showAllData("HomeWork\\TeamProject\\testAddData.bin")

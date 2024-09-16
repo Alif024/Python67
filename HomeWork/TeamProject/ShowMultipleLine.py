@@ -16,7 +16,7 @@ def showAllData(pathFile: str):
                 result = []
                 index += count
                 count = 0
-            
+
             data = file.read(struct.calcsize("20si20s"))
             if not data:
                 df = pd.DataFrame(result)

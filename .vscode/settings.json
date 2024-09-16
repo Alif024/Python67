@@ -1,4 +1,7 @@
 {
   "editor.tabSize": 4,
-  "editor.defaultFormatter": "ms-python.autopep8"
+  "editor.defaultFormatter": "ms-python.autopep8",
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }

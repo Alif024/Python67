@@ -5,8 +5,9 @@ while True:
     print("2. Show specific data")
     print("3. Export report")
     print("4. Exit")
-    choice = input("Enter your choice: ")
+    print("Ctrl+C to cancel or go to the main menu")
     try:
+        choice = input("Enter your choice: ")
         match choice:
             case '1':
                 bfo.showAllData()
@@ -16,17 +17,36 @@ while True:
                 print("3. Department")
                 print("4. Average Score")
                 print("5. Salary")
+                print("Ctrl+C to cancel or go to the main menu")
                 col = input("Enter the column to search: ")
-                if col in ['4', '5']:
-                    print("Example single search =>`80` or multiple search =>`80 90 100`")
-                elif col == '1':
-                    print("Example single search =>`0001` or multiple search =>`0001 0002 0003`")
+                column_choice = ['ID', 'Name', 'Department', 'Average Score', 'Salary'][int(col) - 1]
+                if col == '1':
+                    print("Input a single value or multiple values to search. example =>`0001` or `0001 0002 0003`")
                 elif col == '2':
-                    print("Example single search =>`John` or multiple search =>`John Harry Mary`")
+                    print("Input a single value or multiple values to search. example =>`John` or `John Peter`")
                 elif col == '3':
-                    print("Example single search =>`HR` or multiple search =>`HR IT Marketing`")
-                list_search = input("Enter the values to search: ").strip().split()
-                bfo.showSpecificData(col, list_search)
+                    print("Input a single value or multiple values to search. example =>`HR` or `HR IT`")
+                if col in ['4', '5']:
+                    print("1. More than")
+                    print("2. More than or equal to")
+                    print("3. Less than")
+                    print("4. Less than or equal to")
+                    print("5. Equal to (default)")
+                    print("Ctrl+C to cancel or go to the main menu")
+                    choice = input(f"Input your choice for {column_choice}: ")
+                    compare_choice = ['More than', 'More than or equal to', 'Less than', 'Less than or equal to', 'Equal to'][int(choice) - 1]
+                    match choice:
+                        case '5':
+                            print("Input a single value or multiple values to search. example =>`80` or `80 90 100`")
+                        case _:
+                            print("Input a single value to search. example =>`80`")
+                    list_search = input(f"Enter the values for {column_choice} to search values that are {compare_choice}: ").strip().split()
+                    bfo.showSpecificData(col, list_search, choice)
+                elif col in ['1', '2', '3']:
+                    list_search = input(f"Enter the values for {column_choice} to search: ").strip().split()
+                    bfo.showSpecificData(col, list_search)
+                else:
+                    print("Invalid choice. Please try again.")
             case '3':
                 bfo.exportReport()
             case '4':
@@ -36,5 +56,7 @@ while True:
                 print("Invalid choice. Please try again.")
     except Exception as e:
         print(f"An error occurred: {e}")
+    except KeyboardInterrupt:
+        print("Operation cancelled.")
     else:
         input("Press Enter to continue...")

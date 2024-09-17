@@ -2,6 +2,7 @@ import struct
 import numpy as np
 import pandas as pd
 
+
 def readDataFromBinFile() -> list:
     with open("HomeWork\\TeamProject\\temp2\\data.bin", "rb") as file:
         record_size = struct.calcsize("20s20s20s20sf")
@@ -39,7 +40,7 @@ def showAllData():
     print(df_data_arr.to_string(index=False))
 
 
-def showSpecificData(col: int, list_search: list):
+def showSpecificData(col: int, list_search: list, choice=None):
     list_records = readDataFromBinFile()
     list_records = [(record[0], record[1], record[2], np.mean(record[3]), record[4]) for record in list_records]
     # Define the data types for each field
@@ -52,15 +53,28 @@ def showSpecificData(col: int, list_search: list):
     data_arr = np.asarray(list_records, dtype=dtype)
     col = ['ID', 'Name', 'Department', 'Average Score', 'Salary'][int(col) - 1]
     if col == 'Average Score' or col == 'Salary':
-        list_search = [float(score) for score in list_search]
-    data_fltr = data_arr[np.isin(data_arr[col], list_search)]
-    if col == 'Average Score' or col == 'Salary':
+        choice = choice
+        match choice:
+            case '1':
+                data_fltr = data_arr[data_arr[col] > float(list_search[0])]
+            case '2':
+                data_fltr = data_arr[data_arr[col] >= float(list_search[0])]
+            case '3':
+                data_fltr = data_arr[data_arr[col] < float(list_search[0])]
+            case '4':
+                data_fltr = data_arr[data_arr[col] <= float(list_search[0])]
+            case _:
+                list_search = [float(score) for score in list_search]
+                data_fltr = data_arr[np.isin(data_arr[col], list_search)]
         sorted_data = np.sort(data_fltr, order=col)
     elif col == 'ID' or col == 'Name':
+        data_fltr = data_arr[np.isin(data_arr[col], list_search)]
         sorted_data = np.sort(data_fltr, order='ID')
     elif col == 'Department':
+        data_fltr = data_arr[np.isin(data_arr[col], list_search)]
         sorted_data = np.sort(data_fltr, order='Department')
     # Convert to Pandas DataFrame for display
+    # print(sorted_data)
     df_data_fltr = pd.DataFrame(data=sorted_data)
     if df_data_fltr.empty:
         print("No data found.")

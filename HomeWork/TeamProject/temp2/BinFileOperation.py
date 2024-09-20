@@ -26,7 +26,7 @@ def writeDataToBinFile(list_records: list):
             file.write(data)
 
 
-def editData(pointed_col: int, id: tuple, new_data: tuple, choice_edit=None):
+def editData(pointed_col: int, id: tuple, new_data: tuple, choice_edit=None, selected_col=None):
     list_records = readDataFromBinFile()
     pointed_col = ['Name', 'Department',
                    'Score', 'Salary'][int(pointed_col) - 1]
@@ -55,7 +55,16 @@ def editData(pointed_col: int, id: tuple, new_data: tuple, choice_edit=None):
                     for i in range(len(id)):
                         for index, record in enumerate(list_records):
                             if record[0] == id[i]:
-                                list_records[index][3] = new_data[i]
+                                # print(record, index)
+                                # print(record[3])
+                                # print(record[3][int(selected_col[i]) - 1])
+                                for index_select_col, col in enumerate(selected_col):
+                                    # print(record[3][int(col) - 1])
+                                    # print(list_records[index][3][int(col) - 1], new_data[i][index_select_col])
+                                    list_records[index][3][int(
+                                        col) - 1] = new_data[i][index_select_col]
+                                    # print(new_data[i])
+                                # print(record[3], "\n")
         case 'Salary':
             match choice_edit:
                 case '1':
@@ -105,19 +114,31 @@ def showAllData():
     print(df_data_arr.to_string(index=False))
 
 
-def showSpecificData(col: int, list_search: list, choice=None):
+def showSpecificData(col: int, list_search=None, choice=None):
     list_records = readDataFromBinFile()
-    list_records = [(record[0], record[1], record[2], np.mean(
-        record[3]), record[4]) for record in list_records]
-    # Define the data types for each field
-    dtype = [('ID', 'U20'),             # 4-character string for ID
-             ('Name', 'U20'),           # 10-character string for Name
-             ('Department', 'U20'),     # 10-character string for Department
-             ('Average Score', 'f4'),   # float for Score
-             ('Salary', 'f4')]          # float for Salary
-    # Create a structured NumPy array
-    data_arr = np.asarray(list_records, dtype=dtype)
-    col = ['ID', 'Name', 'Department', 'Average Score', 'Salary'][int(col) - 1]
+    col = ['ID', 'Name', 'Department', 'Average Score',
+           'Score', 'Salary'][int(col) - 1]
+    if col == 'Score':
+        list_records = [(record[0], record[1], record[2], ','.join(list(map(str, record[3]))), record[4]) for record in list_records]
+        # Define the data types for each field
+        dtype = [('ID', 'U20'),             # 4-character string for ID
+                ('Name', 'U20'),           # 10-character string for Name
+                ('Department', 'U20'),     # 10-character string for Department
+                ('Score', 'U20'),   # float for Score
+                ('Salary', 'f4')]          # float for Salary
+        # Create a structured NumPy array
+        data_arr = np.asarray(list_records, dtype=dtype)
+    else:
+        list_records = [(record[0], record[1], record[2], np.mean(
+            record[3]), record[4]) for record in list_records]
+        # Define the data types for each field
+        dtype = [('ID', 'U20'),             # 4-character string for ID
+                ('Name', 'U20'),           # 10-character string for Name
+                ('Department', 'U20'),     # 10-character string for Department
+                ('Average Score', 'f4'),   # float for Score
+                ('Salary', 'f4')]          # float for Salary
+        # Create a structured NumPy array
+        data_arr = np.asarray(list_records, dtype=dtype)
     if col == 'Average Score' or col == 'Salary':
         choice = choice
         match choice:
@@ -139,6 +160,17 @@ def showSpecificData(col: int, list_search: list, choice=None):
     elif col == 'Department':
         data_fltr = data_arr[np.isin(data_arr[col], list_search)]
         sorted_data = np.sort(data_fltr, order='Department')
+    elif col == 'Score':
+        choice = choice
+        match choice:
+            case '1': # Show all data
+                data_fltr = data_arr
+            case '2': # Show selective data
+                data_fltr = data_arr[np.isin(data_arr['ID'], list_search)]
+            case _:
+                print("Invalid choice. Please try again.")
+                return
+        sorted_data = np.sort(data_fltr, order='ID')
     # Convert to Pandas DataFrame for display
     # print(sorted_data)
     df_data_fltr = pd.DataFrame(data=sorted_data)
@@ -198,9 +230,10 @@ def exportReport():
 def main():
     # showSpecificData(1, ['0001', '0002', '0003'])
     # editData(1, ['0001', '0002', '0003'], ['Silfy', 'Vyne', 'Buck'])
-    editData(3, ['0001', '0002', '0003'], [[100, 90, 80], [100, 90, 80], [100, 90, 80]], '1')
+    # editData(3, ['0001', '0002', '0003'], [[50, 90, 80], [
+    #          45, 90, 80], [40, 90, 80]], '2', ['1', '3', '2'])
     # editData(4, ['0001', '0002', '0003'], [10000, 20000, 30000], '3')
     # showSpecificData(1, ['0001', '0002', '0003'])
-
+    pass
 
 main()

@@ -16,17 +16,18 @@ while True:
                 print("2. Name")
                 print("3. Department")
                 print("4. Average Score")
-                print("5. Salary")
+                print("5. Score")
+                print("6. Salary")
                 print("Ctrl+C to cancel or go to the main menu")
                 col = input("Enter the column to search: ")
-                column_choice = ['ID', 'Name', 'Department', 'Average Score', 'Salary'][int(col) - 1]
-                if col == '1':
+                column_choice = ['ID', 'Name', 'Department', 'Average Score', 'Score', 'Salary'][int(col) - 1]
+                if col == '1' or col == '5':
                     print("Input a single value or multiple values to search. example =>`0001` or `0001 0002 0003`")
                 elif col == '2':
                     print("Input a single value or multiple values to search. example =>`John` or `John Peter`")
                 elif col == '3':
                     print("Input a single value or multiple values to search. example =>`HR` or `HR IT`")
-                if col in ['4', '5']:
+                if col in ['4', '6']:
                     print("1. More than")
                     print("2. More than or equal to")
                     print("3. Less than")
@@ -42,6 +43,17 @@ while True:
                             print("Input a single value to search. example =>`80`")
                     list_search = input(f"Enter the values for {column_choice} to search values that are {compare_choice}: ").strip().split()
                     bfo.showSpecificData(col, list_search, choice)
+                elif col == '5':
+                    print("1. Show all records")
+                    print("2. Show specific records by ID")
+                    choice = input(f"Input your choice for {column_choice}: ")
+                    if choice == '1':
+                        bfo.showSpecificData(col, choice='1')
+                    elif choice == '2':
+                        list_search = input(f"Enter the values for {column_choice} to search: ").strip().split()
+                        bfo.showSpecificData(col, list_search, '2')
+                    else:
+                        print("Invalid choice. Please try again.")
                 elif col in ['1', '2', '3']:
                     list_search = input(f"Enter the values for {column_choice} to search: ").strip().split()
                     bfo.showSpecificData(col, list_search)

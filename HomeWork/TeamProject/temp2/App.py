@@ -1,4 +1,5 @@
 import BinFileOperation as bfo
+from os import system
 
 while True:
     print("1. Show all data")
@@ -10,7 +11,10 @@ while True:
         choice = input("Enter your choice: ")
         match choice:
             case '1':
-                bfo.showAllData()
+                print("1. Show average score")
+                print("2. Show score distribution")
+                choice = input("Enter your choice: ")
+                bfo.showAllData(choice)
             case '2':
                 print("1. ID")
                 print("2. Name")
@@ -44,16 +48,9 @@ while True:
                     list_search = input(f"Enter the values for {column_choice} to search values that are {compare_choice}: ").strip().split()
                     bfo.showSpecificData(col, list_search, choice)
                 elif col == '5':
-                    print("1. Show all records")
-                    print("2. Show specific records by ID")
-                    choice = input(f"Input your choice for {column_choice}: ")
-                    if choice == '1':
-                        bfo.showSpecificData(col, choice='1')
-                    elif choice == '2':
-                        list_search = input(f"Enter the values for {column_choice} to search: ").strip().split()
-                        bfo.showSpecificData(col, list_search, '2')
-                    else:
-                        print("Invalid choice. Please try again.")
+                    # bfo.showSpecificData(col, choice='1')
+                    list_search = input(f"Enter the values for {column_choice} to search: ").strip().split()
+                    bfo.showSpecificData(col, list_search)
                 elif col in ['1', '2', '3']:
                     list_search = input(f"Enter the values for {column_choice} to search: ").strip().split()
                     bfo.showSpecificData(col, list_search)
@@ -72,3 +69,5 @@ while True:
         print("Operation cancelled.")
     else:
         input("Press Enter to continue...")
+    finally:
+        system('cls')

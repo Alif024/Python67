@@ -91,18 +91,34 @@ def editData(pointed_col: int, id: tuple, new_data: tuple, choice_edit=None, sel
     writeDataToBinFile(list_records)
 
 
-def showAllData():
+def showAllData(choice=None):
     list_records = readDataFromBinFile()
-    list_records = [(record[0], record[1], record[2], np.mean(
-        record[3]), record[4]) for record in list_records]
-    # Define the data types for each field
-    dtype = [('ID', 'U20'),             # 4-character string for ID
-             ('Name', 'U20'),           # 10-character string for Name
-             ('Department', 'U20'),     # 10-character string for Department
-             ('Average Score', 'f4'),   # float for Score
-             ('Salary', 'f4')]          # float for Salary
-    # Create a structured NumPy array
-    data_arr = np.asarray(list_records, dtype=dtype)
+    choice = choice
+    match choice:
+        case '1':
+            list_records = [(record[0], record[1], record[2], np.mean(
+                record[3]), record[4]) for record in list_records]
+            # Define the data types for each field
+            dtype = [('ID', 'U20'),             # 4-character string for ID
+                    ('Name', 'U20'),           # 10-character string for Name
+                    ('Department', 'U20'),     # 10-character string for Department
+                    ('Average Score', 'f4'),   # float for Score
+                    ('Salary', 'f4')]          # float for Salary
+            # Create a structured NumPy array
+            data_arr = np.asarray(list_records, dtype=dtype)
+        case '2':
+            list_records = [(record[0], record[1], record[2], ','.join(list(map(str, record[3]))), record[4]) for record in list_records]
+            # Define the data types for each field
+            dtype = [('ID', 'U20'),             # 4-character string for ID
+                    ('Name', 'U20'),           # 10-character string for Name
+                    ('Department', 'U20'),     # 10-character string for Department
+                    ('Score', 'U20'),   
+                    ('Salary', 'f4')]          # float for Salary
+            # Create a structured NumPy array
+            data_arr = np.asarray(list_records, dtype=dtype)
+        case _:
+            print("Invalid choice. Please try again.")
+            return
     # Sort by the 'ID' field
     sorted_data = np.sort(data_arr, order='ID')
     # Convert to Pandas DataFrame for display
@@ -124,7 +140,7 @@ def showSpecificData(col: int, list_search=None, choice=None):
         dtype = [('ID', 'U20'),             # 4-character string for ID
                 ('Name', 'U20'),           # 10-character string for Name
                 ('Department', 'U20'),     # 10-character string for Department
-                ('Score', 'U20'),   # float for Score
+                ('Score', 'U20'),   
                 ('Salary', 'f4')]          # float for Salary
         # Create a structured NumPy array
         data_arr = np.asarray(list_records, dtype=dtype)
@@ -161,15 +177,7 @@ def showSpecificData(col: int, list_search=None, choice=None):
         data_fltr = data_arr[np.isin(data_arr[col], list_search)]
         sorted_data = np.sort(data_fltr, order='Department')
     elif col == 'Score':
-        choice = choice
-        match choice:
-            case '1': # Show all data
-                data_fltr = data_arr
-            case '2': # Show selective data
-                data_fltr = data_arr[np.isin(data_arr['ID'], list_search)]
-            case _:
-                print("Invalid choice. Please try again.")
-                return
+        data_fltr = data_arr[np.isin(data_arr['ID'], list_search)]
         sorted_data = np.sort(data_fltr, order='ID')
     # Convert to Pandas DataFrame for display
     # print(sorted_data)

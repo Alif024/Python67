@@ -6,7 +6,7 @@ from pandas import DataFrame
 while True:
     print("1. Show all data")
     print("2. Show specific data")
-    print("3. insert data")
+    print("3. Insert data")
     print("4. Edit data")
     print("5. Delete data")
     print("6. Export report")
@@ -61,7 +61,16 @@ while True:
                 else:
                     print("Invalid choice. Please try again.")
             case '3':   # Insert data
-                pass
+                number_of_data = int(input("Enter the number of data to insert: "))
+                for i in range(number_of_data):
+                    print(f"Input data {i + 1}/{number_of_data}")
+                    id = input("Enter the ID: ")
+                    name = input("Enter the Name: ")
+                    department = input("Enter the Department: ")
+                    score = input("Enter the Score (max 4 value). Example=> `80 90 100 95`\n:")
+                    score = list(map(float, score.strip().split()))
+                    salary = float(input("Enter the Salary: "))
+                    bfo.addData(id.strip(), name.strip(), department.strip(), score, salary)
             case '4':   # Edit data
                 print("1. Name")
                 print("2. Department")
@@ -163,7 +172,8 @@ while True:
                     case _:
                         print("Invalid choice. Please try again.")
             case '5':   # Delete data
-                pass
+                list_search = input(f"Input a single ID or multiple ID to delete. example =>`0001` or `0001 0002 0003`\n:").strip().split()
+                bfo.deleteData(list_search)
             case '6':   # Export report
                 bfo.exportReport()
             case '7':   # Exit

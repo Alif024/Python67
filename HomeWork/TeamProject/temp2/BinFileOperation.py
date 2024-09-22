@@ -89,6 +89,28 @@ def editData(pointed_col: str, id: tuple, new_data, choice_edit:str=None, select
             return
     writeDataToBinFile(list_records)
 
+def addData(id: str, name: str, department: str, score: list, salary: float):
+    list_records = readDataFromBinFile()
+    list_records.append([id, name, department, score, salary])
+    writeDataToBinFile(list_records)
+
+def deleteData(multi_id: list):
+    list_records = readDataFromBinFile()
+    all_user_id = [user_data[0] for user_data in list_records]
+    for id in multi_id:
+        if id not in all_user_id:
+            print(f"ID {id} not found.")
+    list_index = []
+    for index, record in enumerate(list_records):
+        if record[0] in multi_id:
+            list_index.append(index)
+    list_index.sort(reverse=True)
+    list_deleted = []
+    for index in list_index:
+        list_deleted.append(list_records.pop(index))
+    writeDataToBinFile(list_records)
+    for record in list_deleted:
+        print(f"ID {record[0]} has been deleted successfully.")
 
 def showAllData(choice=None):
     list_records = readDataFromBinFile()
@@ -243,6 +265,7 @@ def main():
     #          45, 46, 47], [50, 60, 70]], '2', [['1', '3', '2'], ['1', '2', '3'], ['3', '2', '1']])
     # editData(4, ['0001', '0002', '0003'], [10000, 20000, 30000], '3')
     # showSpecificData(5, ['0001', '0002', '0003'])
+    # deleteData(['0001', '0002', '0003'])
     pass
 
 

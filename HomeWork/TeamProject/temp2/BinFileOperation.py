@@ -26,21 +26,25 @@ def writeDataToBinFile(list_records: list):
             file.write(data)
 
 
-def editData(pointed_col: int, id: tuple, new_data: tuple, choice_edit=None, selected_col=None):
+def editData(pointed_col: str, id: tuple, new_data, choice_edit:str=None, selected_col:list=None):
     list_records = readDataFromBinFile()
-    pointed_col = ['Name', 'Department',
-                   'Score', 'Salary'][int(pointed_col) - 1]
     match pointed_col:
         case 'Name':
             for i in range(len(id)):
                 for index, record in enumerate(list_records):
                     if record[0] == id[i]:
-                        list_records[index][1] = new_data[i]
+                        try:
+                            list_records[index][1] = new_data[i]
+                        except IndexError:
+                            raise Exception(f"Input data is not enough for {id[i]}.(required: {len(id)}, got: {len(new_data)})")
         case 'Department':
             for i in range(len(id)):
                 for index, record in enumerate(list_records):
                     if record[0] == id[i]:
-                        list_records[index][2] = new_data[i]
+                        try:
+                            list_records[index][2] = new_data[i]
+                        except IndexError:
+                            list_records[index][2] = new_data[-1]
         case 'Score':
             match choice_edit:
                 case '1':   # Add
@@ -55,36 +59,31 @@ def editData(pointed_col: int, id: tuple, new_data: tuple, choice_edit=None, sel
                     for i in range(len(id)):
                         for index, record in enumerate(list_records):
                             if record[0] == id[i]:
-                                # print(record, index)
-                                # print(record[3])
-                                # print(record[3][int(selected_col[i]) - 1])
-                                for index_select_col, col in enumerate(selected_col):
-                                    # print(record[3][int(col) - 1])
-                                    # print(list_records[index][3][int(col) - 1], new_data[i][index_select_col])
+                                # print(list_records[index][3])
+                                # print()
+                                # print(selected_col[index])
+                                # print()
+                                # print(new_data[i])
+                                for index_select_col, col in enumerate(selected_col[index]):
                                     list_records[index][3][int(
-                                        col) - 1] = new_data[i][index_select_col]
-                                    # print(new_data[i])
-                                # print(record[3], "\n")
+                                        col)] = new_data[i][index_select_col]
         case 'Salary':
             match choice_edit:
                 case '1':
                     for i in range(len(id)):
                         for index, record in enumerate(list_records):
                             if record[0] == id[i]:
-                                list_records[index][4] += new_data[i]
+                                list_records[index][4] += new_data
                 case '2':
                     for i in range(len(id)):
                         for index, record in enumerate(list_records):
                             if record[0] == id[i]:
-                                list_records[index][4] -= new_data[i]
+                                list_records[index][4] -= new_data
                 case '3':
                     for i in range(len(id)):
                         for index, record in enumerate(list_records):
                             if record[0] == id[i]:
                                 list_records[index][4] = new_data[i]
-                case _:
-                    print("Invalid choice. Please try again.")
-                    return
         case _:
             print("Invalid choice. Please try again.")
             return
@@ -100,20 +99,23 @@ def showAllData(choice=None):
                 record[3]), record[4]) for record in list_records]
             # Define the data types for each field
             dtype = [('ID', 'U20'),             # 4-character string for ID
-                    ('Name', 'U20'),           # 10-character string for Name
-                    ('Department', 'U20'),     # 10-character string for Department
-                    ('Average Score', 'f4'),   # float for Score
-                    ('Salary', 'f4')]          # float for Salary
+                     ('Name', 'U20'),           # 10-character string for Name
+                     # 10-character string for Department
+                     ('Department', 'U20'),
+                     ('Average Score', 'f4'),   # float for Score
+                     ('Salary', 'f4')]          # float for Salary
             # Create a structured NumPy array
             data_arr = np.asarray(list_records, dtype=dtype)
         case '2':
-            list_records = [(record[0], record[1], record[2], ','.join(list(map(str, record[3]))), record[4]) for record in list_records]
+            list_records = [(record[0], record[1], record[2], ','.join(
+                list(map(str, record[3]))), record[4]) for record in list_records]
             # Define the data types for each field
             dtype = [('ID', 'U20'),             # 4-character string for ID
-                    ('Name', 'U20'),           # 10-character string for Name
-                    ('Department', 'U20'),     # 10-character string for Department
-                    ('Score', 'U20'),   
-                    ('Salary', 'f4')]          # float for Salary
+                     ('Name', 'U20'),           # 10-character string for Name
+                     # 10-character string for Department
+                     ('Department', 'U20'),
+                     ('Score', 'U20'),
+                     ('Salary', 'f4')]          # float for Salary
             # Create a structured NumPy array
             data_arr = np.asarray(list_records, dtype=dtype)
         case _:
@@ -135,13 +137,14 @@ def showSpecificData(col: int, list_search=None, choice=None):
     col = ['ID', 'Name', 'Department', 'Average Score',
            'Score', 'Salary'][int(col) - 1]
     if col == 'Score':
-        list_records = [(record[0], record[1], record[2], ','.join(list(map(str, record[3]))), record[4]) for record in list_records]
+        list_records = [(record[0], record[1], record[2], ','.join(
+            list(map(str, record[3]))), record[4]) for record in list_records]
         # Define the data types for each field
         dtype = [('ID', 'U20'),             # 4-character string for ID
-                ('Name', 'U20'),           # 10-character string for Name
-                ('Department', 'U20'),     # 10-character string for Department
-                ('Score', 'U20'),   
-                ('Salary', 'f4')]          # float for Salary
+                 ('Name', 'U20'),           # 10-character string for Name
+                 ('Department', 'U20'),     # 10-character string for Department
+                 ('Score', 'U20'),
+                 ('Salary', 'f4')]          # float for Salary
         # Create a structured NumPy array
         data_arr = np.asarray(list_records, dtype=dtype)
     else:
@@ -149,10 +152,10 @@ def showSpecificData(col: int, list_search=None, choice=None):
             record[3]), record[4]) for record in list_records]
         # Define the data types for each field
         dtype = [('ID', 'U20'),             # 4-character string for ID
-                ('Name', 'U20'),           # 10-character string for Name
-                ('Department', 'U20'),     # 10-character string for Department
-                ('Average Score', 'f4'),   # float for Score
-                ('Salary', 'f4')]          # float for Salary
+                 ('Name', 'U20'),           # 10-character string for Name
+                 ('Department', 'U20'),     # 10-character string for Department
+                 ('Average Score', 'f4'),   # float for Score
+                 ('Salary', 'f4')]          # float for Salary
         # Create a structured NumPy array
         data_arr = np.asarray(list_records, dtype=dtype)
     if col == 'Average Score' or col == 'Salary':
@@ -179,8 +182,6 @@ def showSpecificData(col: int, list_search=None, choice=None):
     elif col == 'Score':
         data_fltr = data_arr[np.isin(data_arr['ID'], list_search)]
         sorted_data = np.sort(data_fltr, order='ID')
-    # Convert to Pandas DataFrame for display
-    # print(sorted_data)
     df_data_fltr = pd.DataFrame(data=sorted_data)
     if df_data_fltr.empty:
         print("No data found.")
@@ -238,10 +239,11 @@ def exportReport():
 def main():
     # showSpecificData(1, ['0001', '0002', '0003'])
     # editData(1, ['0001', '0002', '0003'], ['Silfy', 'Vyne', 'Buck'])
-    # editData(3, ['0001', '0002', '0003'], [[50, 90, 80], [
-    #          45, 90, 80], [40, 90, 80]], '2', ['1', '3', '2'])
+    # editData("Score", ['0001', '0002', '0003'], [[97, 98, 99], [
+    #          45, 46, 47], [50, 60, 70]], '2', [['1', '3', '2'], ['1', '2', '3'], ['3', '2', '1']])
     # editData(4, ['0001', '0002', '0003'], [10000, 20000, 30000], '3')
-    # showSpecificData(1, ['0001', '0002', '0003'])
+    # showSpecificData(5, ['0001', '0002', '0003'])
     pass
+
 
 main()

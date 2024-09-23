@@ -177,7 +177,7 @@ while True:
             case '6':   # Export report
                 bfo.exportReport()
             case '7':   # Exit
-                if input("Do you want to exit? (y/n): ").lower() == 'y':
+                if input("Do you want to exit? (y/[n]): ").lower() == 'y':
                     break
             case _:
                 print("Invalid choice. Please try again.")

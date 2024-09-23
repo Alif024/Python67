@@ -2,19 +2,24 @@ import struct
 import numpy as np
 import pandas as pd
 
-
 def readDataFromBinFile() -> list:
-    with open("HomeWork\\TeamProject\\temp2\\data.bin", "rb") as file:
-        record_size = struct.calcsize("20s20s20s20sf")
-        list_records = []
-        while True:
-            data = file.read(record_size)
-            if not data:
-                break
-            records = struct.unpack("20s20s20s20sf", data)
-            records = [records[0].decode().strip('\x00'), records[1].decode().strip(
-                '\x00'), records[2].decode().strip('\x00'), [float(score) for score in records[3].decode().strip('\x00').split()], records[4]]
-            list_records.append(records)
+    try:
+        with open("HomeWork\\TeamProject\\temp2\\data.bin", "rb") as file:
+            record_size = struct.calcsize("20s20s20s20sf")
+            list_records = []
+            while True:
+                data = file.read(record_size)
+                if not data:
+                    break
+                records = struct.unpack("20s20s20s20sf", data)
+                record_3 = [float(score) for score in records[3].decode().strip('\x00').split()]
+                if len(record_3) < 4:
+                    record_3 += [0.0] * (4 - len(record_3))
+                records = [records[0].decode().strip('\x00'), records[1].decode().strip(
+                    '\x00'), records[2].decode().strip('\x00'), record_3, records[4]]
+                list_records.append(records)
+    except FileNotFoundError:
+        raise Exception("File not found. Please add data first.")
     return list_records
 
 
@@ -23,7 +28,10 @@ def writeDataToBinFile(list_records: list):
         for record in list_records:
             data = struct.pack("20s20s20s20sf", record[0].encode(), record[1].encode(
             ), record[2].encode(), ' '.join(map(str, record[3])).encode(), record[4])
+        try:
             file.write(data)
+        except Exception:
+            file.write(b'')
 
 
 def editData(pointed_col: str, id: tuple, new_data, choice_edit:str=None, selected_col:list=None):
@@ -90,9 +98,21 @@ def editData(pointed_col: str, id: tuple, new_data, choice_edit:str=None, select
     writeDataToBinFile(list_records)
 
 def addData(id: str, name: str, department: str, score: list, salary: float):
-    list_records = readDataFromBinFile()
-    list_records.append([id, name, department, score, salary])
-    writeDataToBinFile(list_records)
+    try:
+        list_records = readDataFromBinFile()
+        for record in list_records:
+            if record[0] == id:
+                raise Exception(f"ID {id} already exists.")
+        list_records.append([id, name, department, score, salary])
+    except Exception as e:
+        # list_records = [[id, name, department, score, salary]]
+        print(e)
+    else:
+        print(f"ID {id} has been added successfully.")
+        with open("HomeWork\\TeamProject\\temp2\\data.bin", "ab") as file:
+            data = struct.pack("20s20s20s20sf", id.encode(), name.encode(
+            ), department.encode(), ' '.join(map(str, score)).encode(), salary)
+            file.write(data)
 
 def deleteData(multi_id: list):
     list_records = readDataFromBinFile()
@@ -114,11 +134,11 @@ def deleteData(multi_id: list):
 
 def showAllData(choice=None):
     list_records = readDataFromBinFile()
+    np.seterr(all='ignore')
     choice = choice
     match choice:
         case '1':
-            list_records = [(record[0], record[1], record[2], np.mean(
-                record[3]), record[4]) for record in list_records]
+            list_records = [(record[0], record[1], record[2], np.mean(record[3]), record[4]) for record in list_records]
             # Define the data types for each field
             dtype = [('ID', 'U20'),             # 4-character string for ID
                      ('Name', 'U20'),           # 10-character string for Name
@@ -129,7 +149,7 @@ def showAllData(choice=None):
             # Create a structured NumPy array
             data_arr = np.asarray(list_records, dtype=dtype)
         case '2':
-            list_records = [(record[0], record[1], record[2], ','.join(
+            list_records = [(record[0], record[1], record[2], ', '.join(
                 list(map(str, record[3]))), record[4]) for record in list_records]
             # Define the data types for each field
             dtype = [('ID', 'U20'),             # 4-character string for ID
@@ -149,7 +169,7 @@ def showAllData(choice=None):
     df_data_arr = pd.DataFrame(sorted_data)
     # Display the data without the index column
     if df_data_arr.empty:
-        print("No data found.")
+        print("Data not found.")
         return
     print(df_data_arr.to_string(index=False))
 
@@ -265,6 +285,9 @@ def main():
     #          45, 46, 47], [50, 60, 70]], '2', [['1', '3', '2'], ['1', '2', '3'], ['3', '2', '1']])
     # editData(4, ['0001', '0002', '0003'], [10000, 20000, 30000], '3')
     # showSpecificData(5, ['0001', '0002', '0003'])
+    # addData('0001', 'Silfy', 'IT', [97, 98, 99], 10000)
+    # addData('0002', 'Silfy', 'IT', [97, 98, 99], 10000)
+    # showAllData('1')
     # deleteData(['0001', '0002', '0003'])
     pass
 

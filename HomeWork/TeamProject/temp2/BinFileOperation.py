@@ -3,10 +3,10 @@ import numpy as np
 import pandas as pd
 
 def readDataFromBinFile() -> list:
+    list_records = []
     try:
         with open("HomeWork\\TeamProject\\temp2\\data.bin", "rb") as file:
             record_size = struct.calcsize("20s20s20s20sf")
-            list_records = []
             while True:
                 data = file.read(record_size)
                 if not data:
@@ -19,7 +19,8 @@ def readDataFromBinFile() -> list:
                     '\x00'), records[2].decode().strip('\x00'), record_3, records[4]]
                 list_records.append(records)
     except FileNotFoundError:
-        raise Exception("File not found. Please add data first.")
+        with open("HomeWork\\TeamProject\\temp2\\data.bin", "wb") as file:
+            file.write(b'')
     return list_records
 
 

@@ -1,28 +1,29 @@
 Summary Report:
 Department: Engineering
-  Silfy: Average Score = 75.00
-  Matthew: Average Score = 78.75
-  Sarah: Average Score = 95.25
-Top Performer: Sarah Average score = 95.25
+  Robert: Average Score = 90.86
+  Matthew: Average Score = 80.00
+  Sarah: Average Score = 95.80
+Top Performer: Sarah Average score = 95.80
 Department: Sales
-  Vyne: Average Score = 73.75
-  Emma: Average Score = 91.50
-  Michael: Average Score = 78.75
-Top Performer: Emma Average score = 91.50
+  Alice: Average Score = 80.00
+  Emma: Average Score = 90.20
+  Michael: Average Score = 80.00
+Top Performer: Emma Average score = 90.20
 Department: Marketing
-  Buck: Average Score = 72.50
-  Jessica: Average Score = 82.00
-  Andrew: Average Score = 95.25
-Top Performer: Andrew Average score = 95.25
+  John: Average Score = 80.60
+  Jessica: Average Score = 80.60
+  Andrew: Average Score = 95.80
+Top Performer: Andrew Average score = 95.80
 Department: Finance
-  Emily: Average Score = 95.25
-  Daniel: Average Score = 78.75
-  Olivia: Average Score = 91.50
-Top Performer: Emily Average score = 95.25
+  Emily: Average Score = 95.80
+  Daniel: Average Score = 80.00
+  Olivia: Average Score = 90.20
+Top Performer: Emily Average score = 95.80
 Department: HR
-  David: Average Score = 95.25
-  Sophia: Average Score = 95.25
-  James: Average Score = 82.00
-Top Performer: David Average score = 95.25
+  David: Average Score = 95.80
+  Sophia: Average Score = 95.80
+  James: Average Score = 80.60
+  Poppy: Average Score = 0.00
+Top Performer: David Average score = 95.80
 
-Best Department: HR Average score = 90.83
+Best Department: Engineering Average score = 88.89

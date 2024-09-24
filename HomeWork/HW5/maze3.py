@@ -2,6 +2,7 @@ from collections import deque
 
 
 def maze_solver_with_teleport(maze: list, portals: dict):
+    fork_points = []
     block_loop_portals = []
     possible_moves = []
     path = []
@@ -29,17 +30,19 @@ def maze_solver_with_teleport(maze: list, portals: dict):
             direction_check = start[0] + direction[0], start[1] + direction[1]
             if direction_check in possible_moves and direction_check not in path:
                 possible_directions.append(direction_check)
-        print(f"Current Position: {start}")
-        print(f"Possible Directions: {possible_directions}")
-        print(f"Path: {path}")
-        print(count)
-        print()
         if len(possible_directions) == 1:
             start = possible_directions[0]
             path.append(start)
+            print(f"if 1")
         elif len(possible_directions) == 0 and start in portals and start not in block_loop_portals:
             start = portals[start]
             block_loop_portals.append(start)
+            path.append(start)
+            print(f"if 2")
+        elif len(possible_directions) > 1:
+            print(f"if 3")
+            fork_points.append(possible_directions[0])
+            start = possible_directions[0]
             path.append(start)
         else:
             break
@@ -48,7 +51,14 @@ def maze_solver_with_teleport(maze: list, portals: dict):
             print("End Reached")
             print(f"Path: {path}")
             break
+        print(f"Current Position: {start}")
+        print(f"Possible Directions: {possible_directions}")
+        print(f"Path: {path}")
+        print(f"Fork Points: {fork_points}")
         count += 1
+
+        print(count)
+        print()
 
 
 if __name__ == "__main__":

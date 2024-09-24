@@ -30,6 +30,8 @@ def maze_solver_with_teleport(maze: list, portals: dict):
             direction_check = start[0] + direction[0], start[1] + direction[1]
             if direction_check in possible_moves and direction_check not in path:
                 possible_directions.append(direction_check)
+
+        print(f"Current Position: {start}")
         if len(possible_directions) == 1:
             start = possible_directions[0]
             path.append(start)
@@ -45,13 +47,12 @@ def maze_solver_with_teleport(maze: list, portals: dict):
             start = possible_directions[0]
             path.append(start)
         else:
+            print("Don't know what to do")
             break
         
         if start == end:
             print("End Reached")
             print(f"Path: {path}")
-            break
-        print(f"Current Position: {start}")
         print(f"Possible Directions: {possible_directions}")
         print(f"Path: {path}")
         print(f"Fork Points: {fork_points}")

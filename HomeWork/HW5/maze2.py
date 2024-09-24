@@ -1,65 +1,41 @@
 from collections import deque
 
-
 def maze_solver_with_teleport(maze: list, portals: dict):
-    # Direction vectors for moving up, down, left, and right
-    directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]
-
-    # Find the start ('S') and end ('E') positions in the maze
-    start = end = None
     rows, cols = len(maze), len(maze[0])
+    start = None
+    end = None
     for r in range(rows):
         for c in range(cols):
             if maze[r][c] == 'S':
                 start = (r, c)
             elif maze[r][c] == 'E':
                 end = (r, c)
-
-    # BFS setup
-    queue = deque([(start, 0, [])])  # (position, distance, path)
-    visited = set([start])
-
-    # BFS loop
+    directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+    queue = deque([(start, [start], 0)])  
+    visited = set()
+    visited.add(start)
     while queue:
-        (r, c), distance, path = queue.popleft()
-        print(f"Queue: {queue}")
-        print(f"Visited: {visited}")
+        (current, path, steps) = queue.popleft()
+        if current == end:
+            return steps, path
+        for d in directions:
+            next_r, next_c = current[0] + d[0], current[1] + d[1]
+            
+            if 0 <= next_r < rows and 0 <= next_c < cols:
+                if maze[next_r][next_c] != '#' and (next_r, next_c) not in visited:
+                    
+                    visited.add((next_r, next_c))
+                    next_steps = steps + 1
+                    queue.append(((next_r, next_c), path + [(next_r, next_c)], next_steps))
+                    
+                    if maze[next_r][next_c] == 'P':
+                        portal_destination = portals[(next_r, next_c)]
+                        if portal_destination not in visited:
+                            visited.add(portal_destination)
+                            queue.append((portal_destination, path + [(next_r, next_c), portal_destination], next_steps))
 
-        # If we've reached the end, return the distance and path
-        if (r, c) == end:
-            print("End reached")
-            return distance, path + [(r, c)]
-        print()
-
-        # Explore the 4 adjacent cells
-        for dr, dc in directions:
-            print(f"Direction [dr: {dr}, dc: {dc}]")
-            nr, nc = r + dr, c + dc
-            print(f"New Position [nr: {nr}, nc: {nc}]")
-            if 0 <= nr < rows and 0 <= nc < cols and maze[nr][nc] != '#' and (nr, nc) not in visited:
-                visited.add((nr, nc))
-                queue.append(((nr, nc), distance + 1, path + [(r, c)]))
-                print(f"Queue: {queue}")
-                print(f"Visited: {visited}")
-            print()
-
-        # Check for portal teleportation
-        if (r, c) in portals:
-            portal_exit = portals[(r, c)]
-            print(f"Portal Exit: {portal_exit}, r: {r}, c: {c}")
-            if portal_exit not in visited:
-                visited.add(portal_exit)
-                queue.append((portal_exit, distance + 1, path + [(r, c)]))
-                print(f"Queue: {queue} [{(nr,nc)}, {distance + 1}, {path + [(r, c)]}]")
-                print(f"Visited: {visited}")
-        print()
-        print()
-
-    # If no path is found, return -1 for distance and an empty path
-    print("No path found")
-    return -1, []
-
-
+    return -1, []  
+    # 
 if __name__ == "__main__":
     # Example 1
     maze = [
@@ -78,22 +54,23 @@ if __name__ == "__main__":
     print(f"Distance: {distance}, Path: {path}")
     # Output: Distance: 5, Path: [(0, 0), (0, 1), (0, 2), (0, 3), (2, 0), (2, 1), (2, 2), (2, 3)]
 
+
     # Example 2
-    # maze = [
-    #     ['S', '.', '#', 'P', '#', 'P'],
-    #     ['#', '.', '#', '.', '#', '.'],
-    #     ['#', '.', 'P', '.', '.', 'E'],
-    #     ['P', '#', '#', '#', '#', '#'],
-    #     ['#', '.', '.', 'P', '.', '.']
-    # ]
+    maze = [
+        ['S', '.', '#', 'P', '#', 'P'],
+        ['#', '.', '#', '.', '#', '.'],
+        ['#', '.', 'P', '.', '.', 'E'],
+        ['P', '#', '#', '#', '#', '#'],
+        ['#', '.', '.', 'P', '.', '.']
+    ]
 
-    # portals = {
-    #     (0, 3): (3, 0),  # Portal from (0, 3) to (3, 0)
-    #     (3, 0): (0, 3),  # Portal from (3, 0) to (0, 3)
-    #     (0, 5): (2, 2),  # Portal from (0, 5) to (2, 2)
-    #     (2, 2): (0, 5)   # Portal from (2, 2) to (0, 5)
-    # }
+    portals = {
+        (0, 3): (3, 0),  # Portal from (0, 3) to (3, 0)
+        (3, 0): (0, 3),  # Portal from (3, 0) to (0, 3)
+        (0, 5): (2, 2),  # Portal from (0, 5) to (2, 2)
+        (2, 2): (0, 5)   # Portal from (2, 2) to (0, 5)
+    }
 
-    # distance, path = maze_solver_with_teleport(maze, portals)
-    # print(f"Distance: {distance}, Path: {path}")
-    # # Expected Output: Distance: 6, Path: [(0, 0), (0, 1), (1, 1), (2, 1), (2, 2), (0, 5), (1, 5), (2, 5)]
+    distance, path = maze_solver_with_teleport(maze, portals)
+    print(f"Distance: {distance}, Path: {path}")
+    # Expected Output: Distance: 6, Path: [(0, 0), (0, 1), (1, 1), (2, 1), (2, 2), (0, 5), (1, 5), (2, 5)]

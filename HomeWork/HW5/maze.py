@@ -18,7 +18,7 @@ def maze_solver_with_teleport(maze: list, portals: dict):
             if col == '.':
                 possible_moves.append((index_row, index_col))
     count = 0
-    while count < 5:
+    while count < 6:
         posible_directions = []
         for direction in directions:
             # print(f"direction: {start[0] + direction[0], start[1] + direction[1]}")
@@ -30,8 +30,9 @@ def maze_solver_with_teleport(maze: list, portals: dict):
             start = posible_directions[0]   # step to possible direction
             path.append(start)              # add the step to the path
         elif len(posible_directions) == 0:  # if there is no possible direction
-            start = portals[start]          # step to the portal
-            path.append(start)              # add the step to the path
+            if start in portals:            # if the current position is a portal
+                start = portals[start]          # step to the portal
+                path.append(start)              # add the step to the path
         elif len(posible_directions) > 1:
             rand_direction = choice(posible_directions)
             fork_points[start] = rand_direction

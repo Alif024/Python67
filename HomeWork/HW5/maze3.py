@@ -37,7 +37,7 @@ def maze_solver_with_teleport(maze: list, portals: dict):
         if len(possible_directions) == 1:
             start = possible_directions[0]
             path.append(start)
-        elif len(possible_directions) == 0 and start in portals:
+        elif len(possible_directions) == 0 and start in portals and start not in block_loop_portals:
             start = portals[start]
             block_loop_portals.append(start)
             path.append(start)

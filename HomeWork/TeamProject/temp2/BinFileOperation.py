@@ -25,6 +25,9 @@ def readDataFromBinFile() -> list:
 
 
 def writeDataToBinFile(list_records: list):
+    if len(list_records) == 0:
+        with open("HomeWork\\TeamProject\\temp2\\data.bin", "wb") as file:
+            file.write(b'')
     for index, record in enumerate(list_records):
         if index == 0:
             with open("HomeWork\\TeamProject\\temp2\\data.bin", "wb") as file:

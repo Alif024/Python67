@@ -73,6 +73,7 @@ def editData(pointed_col: str, id: tuple, new_data, choice_edit:str=None, select
                                     # print(list_records[index][3])
                 case '2':   # selective update
                     for i in range(len(id)):
+                        print(list_records)
                         for index, record in enumerate(list_records):
                             if record[0] == id[i]:
                                 # print(list_records[index][3])

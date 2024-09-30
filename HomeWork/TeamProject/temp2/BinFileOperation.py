@@ -2,10 +2,12 @@ import struct
 import numpy as np
 import pandas as pd
 
+bin_path = "HomeWork\\TeamProject\\temp2\\data.bin"
+
 def readDataFromBinFile() -> list:
     list_records = []
     try:
-        with open("HomeWork\\TeamProject\\temp2\\data.bin", "rb") as file:
+        with open(bin_path, "rb") as file:
             record_size = struct.calcsize("20s20s20s20sf")
             while True:
                 data = file.read(record_size)
@@ -19,23 +21,23 @@ def readDataFromBinFile() -> list:
                     '\x00'), records[2].decode().strip('\x00'), record_3, records[4]]
                 list_records.append(records)
     except FileNotFoundError:
-        with open("HomeWork\\TeamProject\\temp2\\data.bin", "wb") as file:
+        with open(bin_path, "wb") as file:
             file.write(b'')
     return list_records
 
 
 def writeDataToBinFile(list_records: list):
     if len(list_records) == 0:
-        with open("HomeWork\\TeamProject\\temp2\\data.bin", "wb") as file:
+        with open(bin_path, "wb") as file:
             file.write(b'')
     for index, record in enumerate(list_records):
         if index == 0:
-            with open("HomeWork\\TeamProject\\temp2\\data.bin", "wb") as file:
+            with open(bin_path, "wb") as file:
                 data = struct.pack("20s20s20s20sf", record[0].encode(), record[1].encode(
                 ), record[2].encode(), ' '.join(map(str, record[3])).encode(), record[4])
                 file.write(data)
         else:
-            with open("HomeWork\\TeamProject\\temp2\\data.bin", "ab") as file:
+            with open(bin_path, "ab") as file:
                 data = struct.pack("20s20s20s20sf", record[0].encode(), record[1].encode(
                 ), record[2].encode(), ' '.join(map(str, record[3])).encode(), record[4])
                 file.write(data)
@@ -115,7 +117,7 @@ def addData(id: str, name: str, department: str, score: list, salary: float):
         print(e)
     else:
         print(f"ID {id} has been added successfully.")
-        with open("HomeWork\\TeamProject\\temp2\\data.bin", "ab") as file:
+        with open(bin_path, "ab") as file:
             data = struct.pack("20s20s20s20sf", id.encode(), name.encode(
             ), department.encode(), ' '.join(map(str, score)).encode(), salary)
             file.write(data)

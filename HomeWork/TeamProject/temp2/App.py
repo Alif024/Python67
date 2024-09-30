@@ -165,7 +165,7 @@ while True:
                                     bfo.editData(column_choice,multi_id, new_salary, choice_edit_salary)
                             case '3':
                                 print(f"Input new salary for {multi_id} to edit.")
-                                new_salary = input("Enter the new salary according to ID:")
+                                new_salary = input("Enter the new salary:")
                                 new_salary = tuple(map(float, new_salary.strip().split()))
                                 if len(new_salary) == 0:
                                     print(f"Salary not found can't edit salary for {multi_id}.")

@@ -113,9 +113,9 @@ while True:
                             case '1':
                                 for id in multi_id:
                                     new_score = input(f"Enter the new score (max 4 value) for {id}. Example=> `80 90 100 95`\n:")
-                                    new_score = tuple(new_score.strip().split())
-                                    if len(new_score) == 0:
-                                        new_score = [0, 0, 0, 0]
+                                    new_score = list(new_score.strip().split())
+                                    while len(new_score) < 4:
+                                        new_score.insert(0, 0)
                                     multi_new_score.append(new_score)
                                 bfo.editData(column_choice,multi_id,multi_new_score,choice_edit_score)
                             case '2':

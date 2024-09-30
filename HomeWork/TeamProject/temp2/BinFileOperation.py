@@ -73,17 +73,14 @@ def editData(pointed_col: str, id: tuple, new_data, choice_edit:str=None, select
                                     # print(list_records[index][3])
                 case '2':   # selective update
                     for i in range(len(id)):
-                        print(list_records)
                         for index, record in enumerate(list_records):
                             if record[0] == id[i]:
-                                # print(list_records[index][3])
-                                # print()
-                                # print(selected_col[index])
-                                # print()
-                                # print(new_data[i])
-                                for index_select_col, col in enumerate(selected_col[index]):
-                                    list_records[index][3][int(
-                                        col)] = new_data[i][index_select_col]
+                                # print(record[0])
+                                # print(selected_col[i])
+                                for col in selected_col[i]:
+                                    # print(list_records[index][3][int(col)])
+                                    # print(new_data[i][selected_col[i].index(col)])
+                                    list_records[index][3][int(col)] = new_data[i][selected_col[i].index(col)]
         case 'Salary':
             match choice_edit:
                 case '1':

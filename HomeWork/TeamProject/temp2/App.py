@@ -100,18 +100,20 @@ while True:
                 match column_choice:
                     case 'Name':
                         print(f"Please enter new name to edit. (Must be equal to the number of IDs)")
-                        print("Example. Enter the new name for ('001', '002'): John Peter")
-                        new_name = input(f"(Edit) Enter the new name for {multi_id}: ")
+                        print("Example. Enter the new name for ID('001', '002'): John Peter")
+                        new_name = input(f"(Edit) Enter the new name for ID{multi_id}: ")
                         new_name = tuple(new_name.strip().split())
                         bfo.editData(column_choice,multi_id,new_name)
                     case 'Department':
                         print(f"Please enter new department to edit. (Must be equal to the number of IDs)")
-                        print("Example. Enter the new department for ('001', '002'): John Peter")
-                        new_department = input(f"(Edit) Enter the new department for {multi_id}: ")
+                        print("Example. Enter the new department for ID('001', '002'): John Peter")
+                        new_department = input(f"(Edit) Enter the new department for ID{multi_id}: ")
                         new_department = tuple(new_department.strip().split())
                         bfo.editData(column_choice,multi_id,new_department)
                     case 'Score':
-                        choice_edit_score = input("1. Add new score\n2. Edit existing score\nEnter your choice: ")
+                        print("1. Add new score")
+                        print("2. Edit existing score")
+                        choice_edit_score = input("(Edit) Enter your choice: ")
                         all_user_data = bfo.readDataFromBinFile()
                         all_user_data = [(user_data[0],user_data[1] , f"[{', '.join(list(map(str, user_data[3])))}]") for user_data in all_user_data]
                         dtype = [('ID', 'U20'),             # 4-character string for ID
@@ -120,14 +122,21 @@ while True:
                         all_user_data_fltr = asarray(all_user_data, dtype=dtype)
                         data_fltr = all_user_data_fltr[isin(all_user_data_fltr['ID'], multi_id)]
                         sorted_data = sort(data_fltr, order='ID')
+                        if len(sorted_data) == 0:
+                            raise Exception("ID not found can't edit score.")
                         df_data_fltr = DataFrame(data=sorted_data)
                         print(df_data_fltr.to_string(index=False))
                         multi_new_score = []
                         match choice_edit_score:
                             case '1':
                                 for id in multi_id:
-                                    new_score = input(f"Enter the new score (max 4 value) for {id}. Example=> `80 90 100 95`\n:")
+                                    print(f"Please enter new score to edit. (Max 4 value)")
+                                    print(f"Example. Enter the new score: 80 90 100 95")
+                                    new_score = input(f"(Edit>Add new>ID{id}) Enter the new score: ")
                                     new_score = list(new_score.strip().split())
+                                    if len(new_score) == 0:
+                                        print(f"Score not found can't edit score for {id}.")
+                                        continue
                                     while len(new_score) < 4:
                                         new_score.insert(0, 0)
                                     multi_new_score.append(new_score)
@@ -140,13 +149,17 @@ while True:
                                     if id not in all_user_id:
                                         print(f"ID {id} not found can't edit score for {id}.")
                                         continue
-                                    index = input(f"Enter the index of score to edit for {id}. Example=> `0 1 2 3`:")
+                                    print(f"Please enter the index of score to edit. (0-3)")
+                                    print(f"Example. Enter the index: 0 1 2 3")
+                                    index = input(f"(Edit>Edit existing>ID{id}) Enter the index: ")
                                     index = tuple(index.strip().split())
                                     if len(index) == 0:
                                         print(f"Index not found can't edit score for {id}.")
                                         continue
                                     multi_index.append(index)
-                                    new_score = input(f"Enter the new score according to position of index {index} for {id}.\n:")
+                                    print(f"Please enter new score to edit. (According to position of idex)")
+                                    print(f"Example. Enter the new score for index ('0', '2'): 80 90")
+                                    new_score = input(f"(Edit>Edit existing>ID{id}) Enter the new score for index {index}: ")
                                     new_score = tuple(new_score.strip().split())
                                     if len(new_score) == 0:
                                         print(f"Score not found can't edit score for {id}.")
@@ -159,27 +172,33 @@ while True:
                             case _:
                                 print("Invalid choice. Please try again.")
                     case 'Salary':
-                        choice_edit_salary = input("1. Add new salary\n2. Cut salary\n3. Edit existing salary\nEnter your choice: ")
+                        print("1. Add new salary")
+                        print("2. Cut salary")
+                        print("3. Edit existing salary")
+                        choice_edit_salary = input("(Edit) Enter your choice: ")
                         match choice_edit_salary:
                             case '1':
-                                print(f"Input new salary for ID ['{", ".join(multi_id)}'] to add.")
+                                print(f"Please enter value for add salary of ID {multi_id}.")
+                                print("Example. Enter a single number for add salary: 1000")
                                 try:
-                                    new_salary = float(input("Enter 1 number only for add salary: "))
+                                    new_salary = float(input("(Edit) Enter a single number for add salary: "))
                                 except ValueError:
                                     print("Input 1 number only.")
                                 else:
                                     bfo.editData(column_choice,multi_id, new_salary, choice_edit_salary)
                             case '2':
-                                print(f"Input new salary for ID ['{", ".join(multi_id)}'] to cut.")
+                                print(f"Please enter value for cut salary of ID {multi_id}.")
+                                print("Example. Enter a single number for cut salary: 1000")
                                 try:
-                                    new_salary = float(input("Enter 1 number only for cut salary: "))
+                                    new_salary = float(input("(Edit) Enter a single number for cut salary: "))
                                 except ValueError:
                                     print("Input 1 number only.")
                                 else:
                                     bfo.editData(column_choice,multi_id, new_salary, choice_edit_salary)
                             case '3':
-                                print(f"Input new salary for {multi_id} to edit.")
-                                new_salary = input("Enter the new salary:")
+                                print(f"Please enter new salary for {multi_id}.")
+                                print(f"Example. Enter a single number for new salary: 10000")
+                                new_salary = input("(Edit) Enter a single number for new salary:")
                                 new_salary = tuple(map(float, new_salary.strip().split()))
                                 if len(new_salary) == 0:
                                     print(f"Salary not found can't edit salary for {multi_id}.")
@@ -192,7 +211,10 @@ while True:
                     case _:
                         print("Invalid choice. Please try again.")
             case '5':   # Delete data
-                list_search = input(f"Input a single ID or multiple ID to delete. example =>`0001` or `0001 0002 0003`\n:").strip().split()
+                print("Please enter a single ID or multiple IDs to delete.")
+                print("Example. [A single ID] Enter ID: 0001")
+                print("Example. [Multiple IDs] Enter ID: 0001 0002 0003")
+                list_search = input(f"(Delete) Enter ID:").strip().split()
                 bfo.deleteData(list_search)
             case '6':   # Export report
                 bfo.exportReport()

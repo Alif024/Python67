@@ -52,7 +52,7 @@ if __name__ == "__main__":
 
     distance, path = maze_solver_with_teleport(maze, portals)
     print(f"Distance: {distance}, Path: {path}")
-    # Output: Distance: 5, Path: [(0, 0), (0, 1), (0, 2), (0, 3), (2, 0), (2, 1), (2, 2), (2, 3)]
+    # Output: Distance: 5, Path: [(0, 0), (1, 0), (1, 1), (1, 2), (2, 2), (2, 3)]
 
 
     # Example 2

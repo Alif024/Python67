@@ -28,10 +28,9 @@ def writeDataToBinFile(list_records: list):
     for index, record in enumerate(list_records):
         if index == 0:
             with open("HomeWork\\TeamProject\\temp2\\data.bin", "wb") as file:
-                for record in list_records:
-                    data = struct.pack("20s20s20s20sf", record[0].encode(), record[1].encode(
-                    ), record[2].encode(), ' '.join(map(str, record[3])).encode(), record[4])
-                    file.write(data)
+                data = struct.pack("20s20s20s20sf", record[0].encode(), record[1].encode(
+                ), record[2].encode(), ' '.join(map(str, record[3])).encode(), record[4])
+                file.write(data)
         else:
             with open("HomeWork\\TeamProject\\temp2\\data.bin", "ab") as file:
                 data = struct.pack("20s20s20s20sf", record[0].encode(), record[1].encode(
@@ -66,8 +65,9 @@ def editData(pointed_col: str, id: tuple, new_data, choice_edit:str=None, select
                             if record[0] == id[i]:
                                 for score in new_data[i]:
                                     list_records[index][3].append(score)
-                                    if len(list_records[index][3]) > 4:
-                                        list_records[index][3].pop(0)
+                                while len(list_records[index][3]) > 4:
+                                    list_records[index][3].pop(0)
+                                    # print(list_records[index][3])
                 case '2':   # selective update
                     for i in range(len(id)):
                         for index, record in enumerate(list_records):

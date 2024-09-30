@@ -81,6 +81,10 @@ while True:
                 column_choice = ['Name', 'Department', 'Score', 'Salary'][int(col) - 1]
                 multi_id = input("Enter a single ID or multiple ID to edit. example =>`0001` or `0001 0002 0003`: ")
                 multi_id = tuple(multi_id.strip().split())
+                if len(multi_id) == 0:
+                    print("ID not found can't edit data.")
+                    input("Press Enter to continue...")
+                    continue
                 match column_choice:
                     case 'Name':
                         print(f"Input new name for {multi_id} to edit. example =>`John` or `John Peter`")
@@ -110,6 +114,8 @@ while True:
                                 for id in multi_id:
                                     new_score = input(f"Enter the new score (max 4 value) for {id}. Example=> `80 90 100 95`\n:")
                                     new_score = tuple(new_score.strip().split())
+                                    if len(new_score) == 0:
+                                        new_score = [0, 0, 0, 0]
                                     multi_new_score.append(new_score)
                                 bfo.editData(column_choice,multi_id,multi_new_score,choice_edit_score)
                             case '2':

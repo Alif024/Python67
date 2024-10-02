@@ -137,8 +137,8 @@ while True:
                                     if len(new_score) == 0:
                                         print(f"Score not found can't edit score for {id}.")
                                         continue
-                                    while len(new_score) < 4:
-                                        new_score.insert(0, 0)
+                                    # while len(new_score) < 4:
+                                    #     new_score.insert(0, 0)
                                     multi_new_score.append(new_score)
                                 bfo.editData(column_choice,multi_id,multi_new_score,choice_edit_score)
                             case '2':

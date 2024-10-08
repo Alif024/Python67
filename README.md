@@ -22,10 +22,18 @@ conda install -p path/to/myenv python=3.11
 ```shell
 conda env export > requirements.yaml
 ```
+or
+```shell
+pip list --format=freeze > requirements.txt
+```
 
 ### Import environment
 ```shell
 conda env create -f requirements.yaml
+```
+or
+```shell
+pip install -r requirements.txt
 ```
 ### Update environment
 ```shell

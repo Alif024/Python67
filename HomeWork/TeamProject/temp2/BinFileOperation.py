@@ -2,10 +2,12 @@ import struct
 import numpy as np
 import pandas as pd
 
+bin_path = "HomeWork\\TeamProject\\temp2\\data.bin"
+
 def readDataFromBinFile() -> list:
     list_records = []
     try:
-        with open("HomeWork\\TeamProject\\temp2\\data.bin", "rb") as file:
+        with open(bin_path, "rb") as file:
             record_size = struct.calcsize("20s20s20s20sf")
             while True:
                 data = file.read(record_size)
@@ -19,21 +21,23 @@ def readDataFromBinFile() -> list:
                     '\x00'), records[2].decode().strip('\x00'), record_3, records[4]]
                 list_records.append(records)
     except FileNotFoundError:
-        with open("HomeWork\\TeamProject\\temp2\\data.bin", "wb") as file:
+        with open(bin_path, "wb") as file:
             file.write(b'')
     return list_records
 
 
 def writeDataToBinFile(list_records: list):
+    if len(list_records) == 0:
+        with open(bin_path, "wb") as file:
+            file.write(b'')
     for index, record in enumerate(list_records):
         if index == 0:
-            with open("HomeWork\\TeamProject\\temp2\\data.bin", "wb") as file:
-                for record in list_records:
-                    data = struct.pack("20s20s20s20sf", record[0].encode(), record[1].encode(
-                    ), record[2].encode(), ' '.join(map(str, record[3])).encode(), record[4])
-                    file.write(data)
+            with open(bin_path, "wb") as file:
+                data = struct.pack("20s20s20s20sf", record[0].encode(), record[1].encode(
+                ), record[2].encode(), ' '.join(map(str, record[3])).encode(), record[4])
+                file.write(data)
         else:
-            with open("HomeWork\\TeamProject\\temp2\\data.bin", "ab") as file:
+            with open(bin_path, "ab") as file:
                 data = struct.pack("20s20s20s20sf", record[0].encode(), record[1].encode(
                 ), record[2].encode(), ' '.join(map(str, record[3])).encode(), record[4])
                 file.write(data)
@@ -66,20 +70,19 @@ def editData(pointed_col: str, id: tuple, new_data, choice_edit:str=None, select
                             if record[0] == id[i]:
                                 for score in new_data[i]:
                                     list_records[index][3].append(score)
-                                    if len(list_records[index][3]) > 4:
-                                        list_records[index][3].pop(0)
+                                while len(list_records[index][3]) > 4:
+                                    list_records[index][3].pop(0)
+                                    # print(list_records[index][3])
                 case '2':   # selective update
                     for i in range(len(id)):
                         for index, record in enumerate(list_records):
                             if record[0] == id[i]:
-                                # print(list_records[index][3])
-                                # print()
-                                # print(selected_col[index])
-                                # print()
-                                # print(new_data[i])
-                                for index_select_col, col in enumerate(selected_col[index]):
-                                    list_records[index][3][int(
-                                        col)] = new_data[i][index_select_col]
+                                # print(record[0])
+                                # print(selected_col[i])
+                                for col in selected_col[i]:
+                                    # print(list_records[index][3][int(col)])
+                                    # print(new_data[i][selected_col[i].index(col)])
+                                    list_records[index][3][int(col)] = new_data[i][selected_col[i].index(col)]
         case 'Salary':
             match choice_edit:
                 case '1':
@@ -114,7 +117,7 @@ def addData(id: str, name: str, department: str, score: list, salary: float):
         print(e)
     else:
         print(f"ID {id} has been added successfully.")
-        with open("HomeWork\\TeamProject\\temp2\\data.bin", "ab") as file:
+        with open(bin_path, "ab") as file:
             data = struct.pack("20s20s20s20sf", id.encode(), name.encode(
             ), department.encode(), ' '.join(map(str, score)).encode(), salary)
             file.write(data)

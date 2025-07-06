@@ -3,3 +3,6 @@
 # *.pdf
 *.html
 test
+*.aux
+*.log
+*.out

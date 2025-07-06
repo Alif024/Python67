@@ -29,7 +29,7 @@ pip list --format=freeze > requirements.txt
 
 ### Import environment
 ```shell
-conda env create -f requirements.yaml
+conda env create --prefix D:\ProgramData\miniconda3\envs\Compro67 -f requirements.yaml
 ```
 or
 ```shell

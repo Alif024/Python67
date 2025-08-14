@@ -1,0 +1,94 @@
+\usepackage[thai,english]{babel}
+\usepackage{fontspec}
+\setmainfont{TH Sarabun New}
+\setmonofont{TH Sarabun New}
+
+\usepackage{listings}
+\lstset{
+    basicstyle=\ttfamily,
+    columns=fullflexible,
+    keepspaces=true,
+    literate={ก}{{\char"0E01}}1
+             {ข}{{\char"0E02}}1
+             {ฃ}{{\char"0E03}}1
+             {ค}{{\char"0E04}}1
+             {ฅ}{{\char"0E05}}1
+             {ฆ}{{\char"0E06}}1
+             {ง}{{\char"0E07}}1
+             {จ}{{\char"0E08}}1
+             {ฉ}{{\char"0E09}}1
+             {ช}{{\char"0E0A}}1
+             {ซ}{{\char"0E0B}}1
+             {ฌ}{{\char"0E0C}}1
+             {ญ}{{\char"0E0D}}1
+             {ฎ}{{\char"0E0E}}1
+             {ฏ}{{\char"0E0F}}1
+             {ฐ}{{\char"0E10}}1
+             {ฑ}{{\char"0E11}}1
+             {ฒ}{{\char"0E12}}1
+             {ณ}{{\char"0E13}}1
+             {ด}{{\char"0E14}}1
+             {ต}{{\char"0E15}}1
+             {ถ}{{\char"0E16}}1
+             {ท}{{\char"0E17}}1
+             {ธ}{{\char"0E18}}1
+             {น}{{\char"0E19}}1
+             {บ}{{\char"0E1A}}1
+             {ป}{{\char"0E1B}}1
+             {ผ}{{\char"0E1C}}1
+             {ฝ}{{\char"0E1D}}1
+             {พ}{{\char"0E1E}}1
+             {ฟ}{{\char"0E1F}}1
+             {ภ}{{\char"0E20}}1
+             {ม}{{\char"0E21}}1
+             {ย}{{\char"0E22}}1
+             {ร}{{\char"0E23}}1
+             {ฤ}{{\char"0E24}}1
+             {ล}{{\char"0E25}}1
+             {ฦ}{{\char"0E26}}1
+             {ว}{{\char"0E27}}1
+             {ศ}{{\char"0E28}}1
+             {ษ}{{\char"0E29}}1
+             {ส}{{\char"0E2A}}1
+             {ห}{{\char"0E2B}}1
+             {ฬ}{{\char"0E2C}}1
+             {อ}{{\char"0E2D}}1
+             {ฮ}{{\char"0E2E}}1
+             {ฯ}{{\char"0E2F}}1
+             {ะ}{{\char"0E30}}1
+             {ั}{{\char"0E31}}1
+             {า}{{\char"0E32}}1
+             {ำ}{{\char"0E33}}1
+             {ิ}{{\char"0E34}}1
+             {ี}{{\char"0E35}}1
+             {ึ}{{\char"0E36}}1
+             {ื}{{\char"0E37}}1
+             {ุ}{{\char"0E38}}1
+             {ู}{{\char"0E39}}1
+             {ฺ}{{\char"0E3A}}1
+             {เ}{{\char"0E40}}1
+             {แ}{{\char"0E41}}1
+             {โ}{{\char"0E42}}1
+             {ใ}{{\char"0E43}}1
+             {ไ}{{\char"0E44}}1
+             {ๅ}{{\char"0E45}}1
+             {ๆ}{{\char"0E46}}1
+             {็}{{\char"0E47}}1
+             {่}{{\char"0E48}}1
+             {้}{{\char"0E49}}1
+             {๊}{{\char"0E4A}}1
+             {๋}{{\char"0E4B}}1
+             {์}{{\char"0E4C}}1
+             {ํ}{{\char"0E4D}}1
+             {๎}{{\char"0E4E}}1
+             {๐}{{\char"0E50}}1
+             {๑}{{\char"0E51}}1
+             {๒}{{\char"0E52}}1
+             {๓}{{\char"0E53}}1
+             {๔}{{\char"0E54}}1
+             {๕}{{\char"0E55}}1
+             {๖}{{\char"0E56}}1
+             {๗}{{\char"0E57}}1
+             {๘}{{\char"0E58}}1
+             {๙}{{\char"0E59}}1
+}
